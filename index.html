@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+        <title>LocalStorage Exercicio</title>
+        <!-- Bootstrap CSS CDN -->
+        <link rel="stylesheet" href="bootstrap.min.css">
+        <!-- Our Custom CSS -->
+        <link rel="stylesheet" href="style.css">
+
+    </head>
+    <body>
+        <div class="wrapper">           
+            <nav id="sidebar">
+                <div class="sidebar-header">
+                    <h3>Menu Lateral</h3>
+                </div>
+
+                <ul class="list-unstyled components">
+                    <p>Personalizando o site de acordo com as escolhas do visitante!</p>
+                    <li class="active">
+                        <a href="#sub1" data-toggle="collapse" aria-expanded="false">Menu do Topo</a>
+                        <ul class="collapse list-unstyled" id="sub1">
+                            <li><a href="#" class="fundo" id="btnPreto" cor="black">Preto</a></li>
+                            <li><a href="#" class="fundo" cor="orange">Laranja</a></li>
+                            <li><a href="#" class="fundo" cor="white">Branco</a></li>
+                        </ul>
+                    </li>
+                    <li>                        
+                        <a href="#sub2" data-toggle="collapse" aria-expanded="false">Background</a>
+                        <ul class="collapse list-unstyled" id="sub2">
+                            <li><a href="#" class="bg" cor="gray">Cinza</a></li>
+                            <li><a href="#" class="bg" cor="blue">Azul</a></li>
+                            <li><a href="#" class="bg" cor="white">Branco</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#sub3" data-toggle="collapse" aria-expanded="false">Fonte Tamanho</a>
+                        <ul class="collapse list-unstyled" id="sub3">
+                            <li><a href="#" class="tamanhoFonte" width="0.5">Pequeno</a></li>
+                            <li><a href="#" class="tamanhoFonte" width="1">Medio</a></li>
+                            <li><a href="#" class="tamanhoFonte" width="2">Grande</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#">Item novo..</a>
+                    </li>
+                </ul>
+
+                <ul class="list-unstyled CTAs">
+                    <li><a href="#" id="salvar" class="btn btn-success">Salvar</a></li>
+                    <li><a href="#" id="cancelar" class="btn btn-warning">Cancelar</a></li>
+                </ul>
+            </nav>
+                <div id="content">
+
+                    <nav class="navbar navbar-default" id="menu">
+                        <div class="container-fluid">
+                            <div class="navbar-header">
+                                <button type="button" id="btn" class="btn btn-info navbar-btn">
+                                    <i class="glyphicon glyphicon-align-left"></i>
+                                    <span id="botao">Menu</span>
+                                </button>
+                            </div>
+                        </div>
+                    </nav>
+                    <div class="row">
+                        <h2>Cadastro de Fornecedor</h2>
+                        <hr>
+                        <p>Dados Gerais</p>
+                        <div class="col-4 offset-1">                            
+                            <div class="form-group">
+                                <label for="nome">Nome</label>
+                            <input type="text" class="form-control" name="nome">
+                            </div>                            
+                            <div class="form-group">
+                                <label for="endereço">Endereço: </label>
+                                <input type="text" class="form-control" name="endereço">
+                            </div>                                                                                
+                        </div>
+                        <div class="col-4 offset-1">                            
+                            <div class="form-group">
+                                <label for="CNPJ">CNPJ</label>
+                            <input type="text" class="form-control" name="CNPJ">
+                            </div>
+                            <div class="form-group">
+                                <label for="telefone">Telefone: </label>
+                                <input type="text" class="form-control" name="telefone">
+                            </div>       
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <p>Produtos Fornecidos</p>
+                        <div class="col-8 offset-1">                            
+                            <div class="form-group">
+                                <label for="produto[]">Produto 1: </label>
+                                <input type="text" class="form-control" name="produto[]">
+                            </div>   
+                        </div>
+                        <div class="col-1">
+                            <div class="form-group">
+                                <label for="qtd[]">Qtd: </label>
+                                <input type="text" class="form-control" name="qtd[]">
+                            </div>  
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-10 offset-1">
+                            <div class="lista"></div> 
+                            <div class="form-group mt-3">
+                                <button id="novoProduto" class="btn btn-primary">+ produto</button>
+                            </div>  
+                        </div>
+                    </div>
+                </div>
+        </div>
+        <!-- jQuery CDN -->
+         <script src="jquery-1.12.0.min.js"></script>
+         <!-- Bootstrap Js CDN -->
+         <script src="bootstrap.min.js"></script>
+         <script>
+            const btn = document.querySelector("#btn")
+            const sidebar = document.querySelector("#sidebar")
+            const btnFundoMenu = document.querySelectorAll(".fundo")
+            const menu = document.querySelector("#menu")
+            const btnFundoBody = document.querySelectorAll(".bg")
+            const bodyCorpo = document.querySelector("body")
+            const btnTamanhoFonte = document.querySelectorAll(".tamanhoFonte")
+
+            btn.addEventListener("click", e => {
+                sidebar.classList.toggle("active")
+            })
+
+            btnFundoMenu.forEach(element => {
+                element.addEventListener("click", e => {
+                    menu.style.backgroundColor = e.target.getAttribute('cor')
+                })
+            })
+
+            btnFundoBody.forEach(element => {
+                element.addEventListener("click", e => {
+                    bodyCorpo.style.backgroundColor = e.target.getAttribute("cor")
+                })
+            })
+
+            btnTamanhoFonte.forEach(element => {
+                element.addEventListener("click", e => {
+                    if(e.target.textContent === "Pequeno") {
+                        bodyCorpo.classList.add("p")
+                        bodyCorpo.classList.remove("m")
+                        bodyCorpo.classList.remove("g")
+                    }else if(e.target.textContent === "Medio") {
+                        bodyCorpo.classList.add("m")
+                        bodyCorpo.classList.remove("p")
+                        bodyCorpo.classList.remove("g")
+                        
+                    } else {
+                        bodyCorpo.classList.add("g")
+                        bodyCorpo.classList.remove("p")
+                        bodyCorpo.classList.remove("m")
+                    }
+                })
+            })
+
+            const btnSalvar = document.querySelector("#salvar")
+            btnSalvar.addEventListener("click", e => {
+                let corBody = bodyCorpo.style.backgroundColor
+                let corMenu = menu.style.backgroundColor
+                let tamanhoFt = bodyCorpo.classList[0]
+                localStorage.setItem("tamanhoFt", tamanhoFt)
+                localStorage.setItem("corMenu", corMenu)
+                localStorage.setItem("corBody", corBody)
+            })
+
+            if(localStorage.corMenu) {
+                menu.style.backgroundColor = localStorage.corMenu
+            }
+            if(localStorage.corBody) {
+                bodyCorpo.style.backgroundColor = localStorage.corBody
+            }
+            if(localStorage.tamanhoFt) {
+                bodyCorpo.classList.add(localStorage.tamanhoFt)
+            }
+         </script>
+    </body>
+</html>
